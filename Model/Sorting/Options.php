@@ -29,17 +29,17 @@ class Options
         ];
 
         foreach ($this->catalogConfig->getAttributesUsedForSortBy() as $attribute) {
-            $ascendingLabel = $attribute['frontend_label'].' - Ascending';
-            $descendingLabel = $attribute['frontend_label'].' - Descending';
+            $ascendingLabel = __('%1 - Ascending', $attribute['frontend_label']);
+            $descendingLabel = __('%1 - Descending', $attribute['frontend_label']);
 
             $options[] = [
-                'label' => __($ascendingLabel),
-                'value' => $attribute['attribute_code'].'_direction_asc'
+                'label' => $ascendingLabel,
+                'value' => sprintf('%s_direction_asc', $attribute['attribute_code'])
             ];
 
             $options[] = [
-                'label' => __($descendingLabel),
-                'value' => $attribute['attribute_code'].'_direction_desc'
+                'label' => $descendingLabel,
+                'value' => sprintf('%s_direction_desc', $attribute['attribute_code'])
             ];
         }
 
