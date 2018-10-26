@@ -1,7 +1,7 @@
 var config = {
     map: {
         '*': {
-            productListToolbarForm:'MageSuite_Sorting/js/product/list/toolbar'
+            productListToolbarForm: 'MageSuite_Sorting/js/product/list/toolbar'
         }
     }
 };
