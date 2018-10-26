@@ -21,6 +21,6 @@
     </type>
 
     <preference for="Magento\Catalog\Block\Product\ProductList\Toolbar"
-                type="MageSuite\Block\Product\ProductList\Toolbar"
+                type="MageSuite\Sorting\Block\Product\ProductList\Toolbar"
     />
 </config>
