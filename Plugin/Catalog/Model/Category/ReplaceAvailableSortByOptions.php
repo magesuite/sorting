@@ -17,23 +17,29 @@ class ReplaceAvailableSortByOptions
     public function aroundGetAvailableSortByOptions(\Magento\Catalog\Model\Category $subject, callable $proceed)
     {
         $availableSortBy = [];
-        $defaultSortBy = $this->getAttributeUsedForSortByArray();
-        if ($subject->getAvailableSortBy()) {
-            foreach ($subject->getAvailableSortBy() as $sortBy) {
-                if (isset($defaultSortBy[$sortBy])) {
-                    $availableSortBy[$sortBy] = $defaultSortBy[$sortBy];
-                }
-            }
+
+        $allSortableAttributes = $this->getAllSortableAttributes();
+
+        if (!$subject->getAvailableSortBy()) {
+            return $allSortableAttributes;
         }
 
-        if (!$availableSortBy) {
-            $availableSortBy = $defaultSortBy;
+        foreach ($subject->getAvailableSortBy() as $sortBy) {
+            if (!isset($allSortableAttributes[$sortBy])) {
+                continue;
+            }
+
+            $availableSortBy[$sortBy] = $allSortableAttributes[$sortBy];
+        }
+
+        if (empty($availableSortBy)) {
+            return $allSortableAttributes;
         }
 
         return $availableSortBy;
     }
 
-    protected function getAttributeUsedForSortByArray()
+    protected function getAllSortableAttributes()
     {
         $options = [];
 

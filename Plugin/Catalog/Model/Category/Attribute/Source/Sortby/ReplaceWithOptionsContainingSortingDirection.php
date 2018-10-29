@@ -2,7 +2,7 @@
 
 namespace MageSuite\Sorting\Plugin\Catalog\Model\Category\Attribute\Source\Sortby;
 
-class AddDirectionToOptions
+class ReplaceWithOptionsContainingSortingDirection
 {
     /**
      * @var \MageSuite\Sorting\Model\Sorting\Options

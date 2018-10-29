@@ -3,19 +3,19 @@
 
     <type name="Magento\Catalog\Model\Config\Source\ListSort">
         <plugin
-                name="add_direction_to_options"
-                type="MageSuite\Sorting\Plugin\Catalog\Model\Config\Source\ListSort\AddDirectionToOptions"
+                name="replace_with_options_containing_sorting_direction"
+                type="MageSuite\Sorting\Plugin\Catalog\Model\Config\Source\ListSort\ReplaceWithOptionsContainingSortingDirection"
         />
     </type>
 
     <type name="Magento\Catalog\Model\Category\Attribute\Source\Sortby">
         <plugin
-                name="add_direction_to_options"
-                type="MageSuite\Sorting\Plugin\Catalog\Model\Category\Attribute\Source\Sortby\AddDirectionToOptions"
+                name="replace_with_options_containing_sorting_direction"
+                type="MageSuite\Sorting\Plugin\Catalog\Model\Category\Attribute\Source\Sortby\ReplaceWithOptionsContainingSortingDirection"
         />
     </type>
     <type name="Magento\Catalog\Model\Category">
-        <plugin sortOrder="1" name="mageSuiteSortingCategory"
+        <plugin name="replace_available_sort_by_options"
                 type="MageSuite\Sorting\Plugin\Catalog\Model\Category\ReplaceAvailableSortByOptions"
         />
     </type>
