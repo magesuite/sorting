@@ -1,0 +1,16 @@
+<?php /** @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar */ ?>
+<div class="cs-category-page__toolbar-sorter | cs-input | sorter">
+    <label class="cs-category-page__toolbar-label"><?php /* @escapeNotVerified */ echo __('Sort By: ') ?></label>
+    <select class="cs-select" data-role="sorter">
+        <?php foreach ($block->getAvailableOrders() as $identifier => $label): ?>
+            <?php
+            $identifier = ($identifier == 'relevance') ? 'relevance_direction_asc' : $identifier;
+
+            list($field, $direction) = explode('_direction_', $identifier);
+            $selected = ($block->getCurrentOrder() == $field and $block->getCurrentDirection() == $direction) ? 'selected="selected"' : '';
+            ?>
+
+            <option value="<?=$field?>" data-direction="<?=$direction?>" <?=$selected?>><?= $label?></option>
+        <?php endforeach; ?>
+    </select>
+</div>
