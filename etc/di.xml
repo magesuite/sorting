@@ -20,6 +20,12 @@
         />
     </type>
 
+    <type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
+        <plugin name="replace_available_orders"
+                type="MageSuite\Sorting\Plugin\Catalog\Block\Product\ProductList\Toolbar\ReplaceAvailableOrders"
+        />
+    </type>
+
     <preference for="Magento\Catalog\Block\Product\ProductList\Toolbar"
                 type="MageSuite\Sorting\Block\Product\ProductList\Toolbar"
     />
