@@ -25,8 +25,7 @@ define([
         _create: function () {
             this._bind($(this.options.modeControl), this.options.mode, this.options.modeDefault);
             this._bind($(this.options.limitControl), this.options.limit, this.options.limitDefault);
-
-            $(this.options.orderControl).on('change', {}, $.proxy(this._processSorting, this));
+            this._bindOrder($(this.options.orderControl));
         },
 
         /** @inheritdoc */
@@ -42,6 +41,16 @@ define([
                     'default': defaultValue
                 }, $.proxy(this._processLink, this));
             }
+        },
+
+        /** @inheritdoc */
+        _bindOrder: function (element) {
+            var eventType = 'change';
+            
+            if (!element.is('select')) {
+                eventType = 'click';
+            }
+            element.on(eventType, {}, $.proxy(this._processSorting, this));
         },
 
         /**
@@ -75,9 +84,20 @@ define([
          * @private
          */
         _processSorting: function (event) {
-            var sortingDirection = $(event.currentTarget.options[event.currentTarget.selectedIndex]).data('direction');
-            var sortingField = event.currentTarget.options[event.currentTarget.selectedIndex].value;
+            event.preventDefault();
+            var eventType = event.type,
+                eventTarget = event.currentTarget,
+                sortingDirection,
+                sortingField;
 
+            if (eventType === 'change') {
+                sortingDirection = $(eventTarget.options[eventTarget.selectedIndex]).data('direction');
+                sortingField = eventTarget.options[eventTarget.selectedIndex].value;
+            } else {
+                sortingDirection = $(eventTarget).data('direction');
+                sortingField = $(eventTarget).data('value');
+            }
+            
             this.changeUrl([
                 {"name": "product_list_order", "default": "", "value": sortingField},
                 {"name": "product_list_dir", "default": "", "value": sortingDirection},
