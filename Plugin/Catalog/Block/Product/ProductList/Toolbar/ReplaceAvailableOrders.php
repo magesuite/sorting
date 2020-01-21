@@ -30,7 +30,8 @@ class ReplaceAvailableOrders
         $allSortableAttributes = $this->getAllSortableAttributes();
 
         $currentCategory = $this->registry->registry('current_category');
-        if (!$currentCategory->getAvailableSortBy()) {
+
+        if ($currentCategory === null || !$currentCategory->getAvailableSortBy()) {
             return $allSortableAttributes;
         }
 
