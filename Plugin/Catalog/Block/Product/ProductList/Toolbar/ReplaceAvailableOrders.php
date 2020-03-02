@@ -9,45 +9,47 @@ class ReplaceAvailableOrders
      * @var \MageSuite\Sorting\Model\Sorting\Options
      */
     protected $options;
+
     /**
      * @var \Magento\Framework\Registry
      */
     protected $registry;
 
+    /**
+     * @var \Magento\Store\Model\StoreManager
+     */
+    protected $storeManager;
+
+    /**
+     * @var \Magento\Catalog\Model\CategoryRepository
+     */
+    protected $categoryRepository;
+
     public function __construct(
         \MageSuite\Sorting\Model\Sorting\Options $options,
-        \Magento\Framework\Registry $registry
+        \Magento\Framework\Registry $registry,
+        \Magento\Store\Model\StoreManager $storeManager,
+        \Magento\Catalog\Model\CategoryRepository $categoryRepository
     )
     {
         $this->options = $options;
         $this->registry = $registry;
+        $this->storeManager = $storeManager;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function aroundGetAvailableOrders(\Magento\Catalog\Block\Product\ProductList\Toolbar $subject, callable $proceed)
     {
-        $availableSortBy = [];
+        $sortingAttributes = $this->getAllSortableAttributes();
 
-        $allSortableAttributes = $this->getAllSortableAttributes();
+        $category = $this->registry->registry('current_category') ?: $this->getDefaultCategory();
+        $availableSortingAttributes = $category->getAvailableSortBy();
 
-        $currentCategory = $this->registry->registry('current_category');
-
-        if ($currentCategory === null || !$currentCategory->getAvailableSortBy()) {
-            return $allSortableAttributes;
+        if($availableSortingAttributes) {
+            $sortingAttributes = $this->filterAttributes($sortingAttributes, $availableSortingAttributes);
         }
 
-        foreach ($currentCategory->getAvailableSortBy() as $sortBy) {
-            if (!isset($allSortableAttributes[$sortBy])) {
-                continue;
-            }
-
-            $availableSortBy[$sortBy] = $allSortableAttributes[$sortBy];
-        }
-
-        if (empty($availableSortBy)) {
-            return $allSortableAttributes;
-        }
-
-        return $availableSortBy;
+        return $sortingAttributes;
     }
 
     protected function getAllSortableAttributes()
@@ -60,5 +62,21 @@ class ReplaceAvailableOrders
         }
 
         return $options;
+    }
+
+    protected function getDefaultCategory()
+    {
+        $categoryId = $this->storeManager->getStore()->getRootCategoryId();
+        return $this->categoryRepository->get($categoryId);
+    }
+
+    protected function filterAttributes($sortingAttributes, $availableSortingAttributes)
+    {
+        $filtered = [];
+        foreach($availableSortingAttributes as $sortBy) {
+            $filtered[$sortBy] = $sortingAttributes[$sortBy];
+        }
+
+        return $filtered;
     }
 }
