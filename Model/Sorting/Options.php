@@ -29,8 +29,8 @@ class Options
         ];
 
         foreach ($this->catalogConfig->getAttributesUsedForSortBy() as $attribute) {
-            $ascendingLabel = __($attribute['frontend_label'].' - Ascending');
-            $descendingLabel = __($attribute['frontend_label'].' - Descending');
+            $ascendingLabel = $attribute['frontend_label'] . __(' - Ascending');
+            $descendingLabel = $attribute['frontend_label'] . __(' - Descending');
 
             $options[] = [
                 'label' => $ascendingLabel,
