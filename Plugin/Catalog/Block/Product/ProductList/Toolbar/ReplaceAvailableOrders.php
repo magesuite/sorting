@@ -73,8 +73,10 @@ class ReplaceAvailableOrders
     protected function filterAttributes($sortingAttributes, $availableSortingAttributes)
     {
         $filtered = [];
-        foreach($availableSortingAttributes as $sortBy) {
-            $filtered[$sortBy] = $sortingAttributes[$sortBy];
+        foreach ($availableSortingAttributes as $sortBy) {
+            if (isset($sortingAttributes[$sortBy])) {
+                $filtered[$sortBy] = $sortingAttributes[$sortBy];
+            }
         }
 
         return $filtered;

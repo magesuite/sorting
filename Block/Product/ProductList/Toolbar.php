@@ -27,7 +27,9 @@ class Toolbar extends \Magento\Catalog\Block\Product\ProductList\Toolbar
 
         if (!isset($orders[$defaultOrder])) {
             $keys = array_keys($orders);
-            $defaultOrder = $keys[0];
+            if (!empty($keys)) {
+                $defaultOrder = $keys[0];
+            }
         }
 
         $order = $this->_toolbarModel->getOrder();
