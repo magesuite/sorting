@@ -19,6 +19,11 @@ class Options
         $options = [];
 
         $options[] = [
+            'label' => __('Relevance'),
+            'value' => 'relevance_direction_desc'
+        ];
+
+        $options[] = [
             'label' => __('Position - Ascending'),
             'value' => 'position_direction_asc'
         ];
