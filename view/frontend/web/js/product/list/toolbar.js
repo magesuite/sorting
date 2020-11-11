@@ -7,13 +7,11 @@ define(['jquery'], function($) {
             _create: function() {
                 this._bind(
                     $(this.options.modeControl),
-                    this.options.mode,
-                    this.options.modeDefault
+                    this.options.mode
                 );
                 this._bind(
                     $(this.options.limitControl),
-                    this.options.limit,
-                    this.options.limitDefault
+                    this.options.limit
                 );
                 this._bindOrder($(this.options.orderControl));
             },
@@ -38,7 +36,6 @@ define(['jquery'], function($) {
                 this.changeUrl([
                     {
                         name: event.data.paramName,
-                        default: event.data.default,
                         value: $(event.currentTarget).data('value'),
                     },
                 ]);
@@ -52,7 +49,6 @@ define(['jquery'], function($) {
                 this.changeUrl([
                     {
                         name: event.data.paramName,
-                        default: event.data.default,
                         value:
                             event.currentTarget.options[
                                 event.currentTarget.selectedIndex
@@ -86,12 +82,10 @@ define(['jquery'], function($) {
                 this.changeUrl([
                     {
                         name: 'product_list_order',
-                        default: '',
                         value: sortingField,
                     },
                     {
                         name: 'product_list_dir',
-                        default: '',
                         value: sortingDirection,
                     },
                 ]);
@@ -121,11 +115,6 @@ define(['jquery'], function($) {
 
                 params.forEach(function(item) {
                     paramData[item.name] = item.value;
-
-                    if (item.value == item.default) {
-                        //eslint-disable-line eqeqeq
-                        delete paramData[item.name];
-                    }
                 });
 
                 paramData = $.param(paramData);
