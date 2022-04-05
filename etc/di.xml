@@ -2,31 +2,20 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <type name="Magento\Catalog\Model\Config\Source\ListSort">
-        <plugin
-                name="replace_with_options_containing_sorting_direction"
-                type="MageSuite\Sorting\Plugin\Catalog\Model\Config\Source\ListSort\ReplaceWithOptionsContainingSortingDirection"
-        />
+        <plugin name="replace_with_options_containing_sorting_direction" type="MageSuite\Sorting\Plugin\Catalog\Model\Config\Source\ListSort\ReplaceWithOptionsContainingSortingDirection"/>
     </type>
 
     <type name="Magento\Catalog\Model\Category\Attribute\Source\Sortby">
-        <plugin
-                name="replace_with_options_containing_sorting_direction"
-                type="MageSuite\Sorting\Plugin\Catalog\Model\Category\Attribute\Source\Sortby\ReplaceWithOptionsContainingSortingDirection"
-        />
+        <plugin name="replace_with_options_containing_sorting_direction" type="MageSuite\Sorting\Plugin\Catalog\Model\Category\Attribute\Source\Sortby\ReplaceWithOptionsContainingSortingDirection"/>
     </type>
+
     <type name="Magento\Catalog\Model\Category">
-        <plugin name="replace_available_sort_by_options"
-                type="MageSuite\Sorting\Plugin\Catalog\Model\Category\ReplaceAvailableSortByOptions"
-        />
+        <plugin name="replace_available_sort_by_options" type="MageSuite\Sorting\Plugin\Catalog\Model\Category\ReplaceAvailableSortByOptions" sortOrder="150"/>
     </type>
 
     <type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
-        <plugin name="replace_available_orders"
-                type="MageSuite\Sorting\Plugin\Catalog\Block\Product\ProductList\Toolbar\ReplaceAvailableOrders"
-        />
+        <plugin name="replace_available_orders" type="MageSuite\Sorting\Plugin\Catalog\Block\Product\ProductList\Toolbar\ReplaceAvailableOrders" sortOrder="150"/>
     </type>
 
-    <preference for="Magento\Catalog\Block\Product\ProductList\Toolbar"
-                type="MageSuite\Sorting\Block\Product\ProductList\Toolbar"
-    />
+    <preference for="Magento\Catalog\Block\Product\ProductList\Toolbar" type="MageSuite\Sorting\Block\Product\ProductList\Toolbar"/>
 </config>
