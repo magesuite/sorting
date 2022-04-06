@@ -30,15 +30,14 @@ class ReplaceAvailableOrders
         \Magento\Framework\Registry $registry,
         \Magento\Store\Model\StoreManager $storeManager,
         \Magento\Catalog\Model\CategoryRepository $categoryRepository
-    )
-    {
+    ) {
         $this->options = $options;
         $this->registry = $registry;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function aroundGetAvailableOrders(\Magento\Catalog\Block\Product\ProductList\Toolbar $subject, callable $proceed)
+    public function afterGetAvailableOrders(\Magento\Catalog\Block\Product\ProductList\Toolbar $subject)
     {
         $sortingAttributes = $this->getAllSortableAttributes();
 
