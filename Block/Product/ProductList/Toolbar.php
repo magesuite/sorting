@@ -33,7 +33,7 @@ class Toolbar extends \Magento\Catalog\Block\Product\ProductList\Toolbar
         }
 
         $order = $this->_toolbarModel->getOrder();
-        if (!$order || !isset($orders[$order])) {
+        if (!$order || !is_string($order) || !isset($orders[$order])) {
             $order = $defaultOrder;
         }
 
